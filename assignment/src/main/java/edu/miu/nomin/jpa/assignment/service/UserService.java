@@ -28,5 +28,14 @@ public class UserService {
     public List<User> getUsersWithMoreThanOnePost(){
         return userRepository.findUsersWithMoreThanOnePost();
     }
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
+    }
+    public List<User> getUsersWithMoreThanNPost(int n) {
+        return userRepository.findUsersWithMoreThanNPosts(n);
+    }
+    public List<User> getUsersWithTitle(String title) {
+        return userRepository.findUsersWithTitle(title);
+    }
 
 }

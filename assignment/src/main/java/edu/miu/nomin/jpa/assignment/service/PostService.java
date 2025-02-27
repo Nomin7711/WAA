@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,5 +37,11 @@ public class PostService {
     }
     public PostDto convertToPostDTO(Post post) {
         return modelMapper.map(post, PostDto.class);
+    }
+    public List<PostDto> findByTitle(String title) {
+        List<PostDto> postDtos = new ArrayList<>();
+        List<Post> posts = postRepository.findByTitle(title);
+        posts.forEach(post -> postDtos.add(convertToPostDTO(post)));
+        return postDtos;
     }
 }

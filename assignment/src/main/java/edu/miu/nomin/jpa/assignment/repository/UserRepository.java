@@ -12,4 +12,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByName(String username);
     @Query("SELECT u FROM User u WHERE SIZE(u.posts) > 1")
     List<User> findUsersWithMoreThanOnePost();
+    @Query("SELECT u FROM User u WHERE SIZE(u.posts) >= :n")
+    List<User> findUsersWithMoreThanNPosts(int n);
+    @Query("SELECT u FROM User u JOIN u.posts p WHERE p.title = :title")
+    List<User> findUsersWithTitle(String title);
 }

@@ -1,9 +1,10 @@
 package edu.miu.nomin.jpa.assignment.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -14,12 +15,32 @@ public class Post {
     String title;
     String content;
     String author;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn
+    List<Comment> comments;
+
     public Post() {}
+
     public Post(Long id, String title, String content, String author) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.author = author;
+    }
+
+    public void addComment(Comment comment) {
+        if (comments == null) {
+            comments = new ArrayList<>();
+        }
+        comments.add(comment);
+    }
+
+    public void addComments(List<Comment> comments) {
+        if (comments == null) {
+            comments = new ArrayList<>();
+        }
+        this.comments.addAll(comments);
     }
 
     @Override

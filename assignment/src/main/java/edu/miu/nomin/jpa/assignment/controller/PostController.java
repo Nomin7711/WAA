@@ -40,4 +40,9 @@ public class PostController {
     public void deletePost(@PathVariable Long id) {
         postService.delete(id);
     }
+
+    @GetMapping("/findByTitle/{title}")
+    public List<PostDto> findByTitle(@PathVariable String title) {
+        return postService.findByTitle(title);
+    }
 }
