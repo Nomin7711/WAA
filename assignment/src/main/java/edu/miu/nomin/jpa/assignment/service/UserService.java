@@ -1,5 +1,6 @@
 package edu.miu.nomin.jpa.assignment.service;
 
+import edu.miu.nomin.jpa.assignment.annotation.ExecutionTime;
 import edu.miu.nomin.jpa.assignment.entity.User;
 import edu.miu.nomin.jpa.assignment.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,9 @@ public class UserService {
     public User findByName(String username) {
         return userRepository.findByName(username);
     }
-    public User findById(Long id) {
+
+    @ExecutionTime
+    public User getUserById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
     public List<User> getUsersWithMoreThanOnePost(){

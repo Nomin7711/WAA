@@ -33,12 +33,12 @@ public class UsersController {
 
     @GetMapping("/{id}")
     public User getUser(@PathVariable long id) {
-        return userService.findById(id);
+        return userService.getUserById(id);
     }
 
     @GetMapping("/{id}/posts")
     public List<PostDto> getPosts(@PathVariable long id) {
-        User user = userService.findById(id);
+        User user = userService.getUserById(id);
         if (user == null) return null;
         List<Post> posts = user.getPosts();
         if (posts != null && !posts.isEmpty()) {
@@ -69,13 +69,13 @@ public class UsersController {
     }
     @GetMapping("/{id}/posts/{postId}")
     public Post getUser(@PathVariable long id, @PathVariable long postId) {
-        User user = userService.findById(id);
+        User user = userService.getUserById(id);
         if (user == null) return null;
         return user.getPosts().stream().filter(post -> post.getId() == postId).findFirst().orElse(null);
     }
     @GetMapping("/{id}/posts/{postId}/comments/{commentId}")
     public Comment getUserComment(@PathVariable long id, @PathVariable long postId, @PathVariable long commentId) {
-        User user = userService.findById(id);
+        User user = userService.getUserById(id);
         if (user == null) return null;
         List<Post> posts = user.getPosts();
         if (posts == null || posts.isEmpty()) return null;
