@@ -13,7 +13,7 @@ public class ExecutionTimeAspect {
     @Autowired
     LoggerService loggerService;
 
-    @Around("@annotation(ExecutionTime)")
+    @Around("@annotation(edu.miu.nomin.jpa.assignment.annotation.ExecutionTime)")
     public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
 
         long startTime = System.nanoTime();
