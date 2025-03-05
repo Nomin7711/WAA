@@ -16,4 +16,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findUsersWithMoreThanNPosts(int n);
     @Query("SELECT u FROM User u JOIN u.posts p WHERE p.title = :title")
     List<User> findUsersWithTitle(String title);
+    User findByEmail(String email);
 }
