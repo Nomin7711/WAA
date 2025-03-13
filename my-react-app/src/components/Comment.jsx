@@ -2,6 +2,7 @@ import React from 'react'
 
 const Comment = (props) => {
     const comment = props.comment || {};
+    console.log("Comment is rendered");
   return (
     <div className='comment'>
         <h5>Id : {comment?.id}</h5>
@@ -9,4 +10,4 @@ const Comment = (props) => {
     </div>
   )
 }
-export default Comment;
+export default React.memo(Comment);

@@ -3,6 +3,7 @@ import Posts from './Posts'
 import PostDetails from './PostDetails';
 import axios from 'axios';
 import AddPost from './AddPost';
+import { PostContext } from '../context/PostContext';
 
 const Dashboard = () => {
     const [posts, setPosts] = React.useState();
@@ -11,23 +12,7 @@ const Dashboard = () => {
     const handleTitle = (e) => {
         setTitle(e.target.value);
     }
-    // const data = [
-    //     {
-    //         id: 1,
-    //         title: "Happy Valentines Day",
-    //         author: "Jane"
-    //     },
-    //     {
-    //         id: 2,
-    //         title: "Happy Birthday",
-    //         author: "Jordan"
-    //     },
-    //     {
-    //         id: 3,
-    //         title: "Happy New Year",
-    //         author: "Dave"
-    //     }
-    // ];
+ 
 
     React.useEffect(() => {
         fetchData();
@@ -57,13 +42,15 @@ const Dashboard = () => {
     }
  
   return (
+    <PostContext.Provider value = {{selectedPost, setSelectedPost}}>
     <div>
         <Posts data = {posts} handlePostClick={handlePostClick}/>
         <input className = "input" type="text" placeholder='change title' onChange={handleTitle}/>
         <button style={{background : "rgb(106, 106, 245)", color : "white", marginLeft : "1em"}} onClick={handleButton}>Change name</button>
         <AddPost fetchData = {fetchData}/>
-        <PostDetails post = {selectedPost} fetchData = {fetchData}/>
+        <PostDetails fetchData = {fetchData}/>
     </div>
+    </PostContext.Provider>
   )
 }
 export default Dashboard;

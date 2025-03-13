@@ -1,14 +1,16 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState, useContext, useCallback } from 'react'
 import Comment from './Comment';
+import { PostContext } from '../context/PostContext';
 
 const PostDetails = (props) => {
-    const post = props.post || {};
+    const {selectedPost : post} = useContext(PostContext)
+    // console.log(selectedPost);
+    
+    // const post = props?.post;
+    
     const [postDetail, setPostDetail] = useState();
-    useEffect(() => {
-        if(post?.id) fetchDetails();
-    }, [props.post])
-    const fetchDetails = () => {
+    const fetchDetails = useCallback (() => {
         axios.get(`http://localhost:8080/posts/${post?.id}`)
         .then((response) => {
             setPostDetail(response.data);
@@ -16,7 +18,12 @@ const PostDetails = (props) => {
         .catch((error) => {
             console.error('Error fetching post details:', error);
         });
-    }
+    }, [post]);
+
+    useEffect(() => {
+        if(post?.id) fetchDetails();
+    }, [post])
+    
     const handleDelete =() =>{
         axios.delete(`http://localhost:8080/posts/${post?.id}`).then(() =>{
             props.fetchData();
