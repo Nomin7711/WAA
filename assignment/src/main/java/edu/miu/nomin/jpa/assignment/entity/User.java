@@ -14,7 +14,7 @@ public class User {
     private Long id;
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private List<Post> posts;
 

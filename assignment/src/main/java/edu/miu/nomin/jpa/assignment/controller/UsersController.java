@@ -6,6 +6,7 @@ import edu.miu.nomin.jpa.assignment.entity.User;
 import edu.miu.nomin.jpa.assignment.entity.dto.PostDto;
 import edu.miu.nomin.jpa.assignment.service.PostService;
 import edu.miu.nomin.jpa.assignment.service.UserService;
+import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,12 +15,16 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin(origins = "*")
 public class UsersController {
     @Autowired
     UserService userService;
 
     @Autowired
     PostService postService;
+
+    @Autowired
+    EntityManager entityManager;
 
     @GetMapping
     public List<User> getUsers() {
@@ -83,5 +88,12 @@ public class UsersController {
         if (post == null) return null;
         return post.getComments().stream().filter(c -> c.getId() == commentId).findFirst().orElse(null);
     }
-
+    @GetMapping("/test")
+    public String test() {
+        User user = userService.findByName("test");
+        List<Post> posts = user.getPosts();
+        entityManager.detach(user);
+        posts.get(0).setAuthor("test");
+        return "done";
+    }
 }

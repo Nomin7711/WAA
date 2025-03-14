@@ -26,11 +26,18 @@ public class PostService {
         List<Post> posts = postRepository.findAll();
         return posts.stream().map(post -> modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
     }
+    public List<Post> getAll(){
+        return postRepository.findAll();
+    }
     public Post findById(Long id) {
         return postRepository.findById(id).orElse(null);
     }
-    public Post update(Post post) {
-        return postRepository.save(post);
+    public Post update(Long id, Post post) {
+        Post existingPost = postRepository.findById(id).orElse(null);
+        if (existingPost != null) {
+            return postRepository.save(existingPost);
+        }
+        return null;
     }
     public void delete(Long id) {
         postRepository.deleteById(id);

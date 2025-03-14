@@ -11,12 +11,17 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/posts")
+@CrossOrigin(origins = "*")
 public class PostController {
 
     @Autowired
     private PostService postService;
 
-    @GetMapping
+    @GetMapping()
+    public List<Post> getPosts() {
+        return postService.getAll();
+    }
+    @GetMapping("/dto")
     public List<PostDto> getAllPosts() {
         return postService.findAll();
     }
@@ -31,9 +36,9 @@ public class PostController {
         return postService.save(post);
     }
 
-    @PutMapping
-    public Post updatePost(@RequestBody Post post) {
-        return postService.update(post);
+    @PutMapping("/{id}")
+    public Post updatePost(@RequestBody Post post, @PathVariable Long id) {
+        return postService.update(id, post);
     }
 
     @DeleteMapping("/{id}")
