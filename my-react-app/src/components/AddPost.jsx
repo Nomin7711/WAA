@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useRef} from "react";
 
-const AddPost = (props) => {
+const AddPost = () => {
 //   const [productState, setProductState] = useState({
 //     title: "",
 //     author: "",
@@ -24,7 +24,6 @@ const AddPost = (props) => {
         //   content: "",
         // });
         form.reset();
-        props.fetchData();
       })
       .catch((err) => {
         console.log(err);
