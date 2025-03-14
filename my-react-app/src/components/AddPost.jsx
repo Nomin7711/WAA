@@ -6,7 +6,7 @@ const AddPost = () => {
 //     title: "",
 //     author: "",
 //     content: "",
-//   });
+//   }); 
   const addProductForm = useRef(null);
   const handleAdd = () => {
     const form = addProductForm.current;
